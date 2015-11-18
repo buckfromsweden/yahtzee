@@ -4,21 +4,25 @@ object AvailabeScores {
             upperSection: UpperSection,
             lowerSection: LowerSection): Map<String, Int> {
 
-        val freeFields =
-            scoreSheet.fields
-                .filter { field -> field.value != null }
+        val freeUpperSectionFields =
+            scoreSheet.upperSection
+                .filter { field -> field.value == null }
 
         val fromUpperSection =
             upperSection.fields
                 .filter { field -> field.value != null }
-                .filter { field -> freeFields.containsKey(field.key) }
+                .filter { field -> freeUpperSectionFields.containsKey(field.key) }
                 .mapValues { field -> field.value!! }
                 .toList()
+
+        val freeLowerSectionFields =
+            scoreSheet.lowerSection
+                .filter { field -> field.value == null }
 
         val fromLowerSection =
             lowerSection.fields
                 .filter { field -> field.value != null }
-                .filter { field -> freeFields.containsKey(field.key) }
+                .filter { field -> freeLowerSectionFields.containsKey(field.key) }
                 .mapValues { field -> field.value!! }
                 .toList()
 

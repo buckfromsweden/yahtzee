@@ -2,10 +2,28 @@ object AIScoreSelection {
 
     // First pass :)
 
-    fun select(availableScores: Map<String, Int>) =
+    fun apply(availableScores: Map<String, Int>): Pair<String, Int> {
 
-        availableScores
-            .toList()
-            .reduce { field1, field2 -> if (field1.second > field2.second) field1 else field2 }
+        println("Select your score:")
+
+        val availableScoreList = availableScores.toList()
+
+        availableScoreList.forEachIndexed { index, pair ->
+
+            println("$index\t${pair.first}\t${pair.second}")
+
+        }
+
+        val selectedScore =
+            availableScoreList
+                .reduce { field1, field2 -> if (field1.second > field2.second) field1 else field2 }
+
+        val selectedIndex = availableScoreList.indexOf(selectedScore)
+
+        println(selectedIndex)
+
+        return selectedScore
+
+    }
 
 }
